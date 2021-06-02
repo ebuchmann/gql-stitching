@@ -33,6 +33,8 @@ GET `/schemas/:hash` - This will return the schema data if the hash doesn't matc
 
 The purpose of the gateway is to combine the schemas from all the services in the registry and "stitch" them together as a single endpoint. It will delegate requests to the different services and return the data.
 
+The gateway will check with the registry for updates to the schema, and if an update exists it will "hot reload" the schema with the updates without needing to deploy or restart the gateway.
+
 ### Services
 
 These would generally be your micro services.
