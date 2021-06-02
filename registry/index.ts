@@ -1,10 +1,7 @@
 import express from 'express';
-import fs from 'fs';
-import path from 'path';
-import { createHash } from 'crypto';
+import schemaRegistry from './SchemaRegistry';
 
 const app = express();
-const hash = createHash('sha1');
 
 app.use(express.json());
 
@@ -32,46 +29,3 @@ app.get('/schemas/:hash', (req, res) => {
 });
 
 app.listen(4500, () => console.log(`Registry running at http://localhost:4500`));
-
-interface RegisterSchema {
-  name: string;
-  url: string;
-  typeDefs: string;
-}
-
-class SchemaRegistry {
-  hash;
-  data;
-
-  constructor() {
-    this.generateData();
-  }
-
-  registerSchema({ name, url, typeDefs }: RegisterSchema) {
-    fs.writeFileSync(
-      `${path.join(__dirname, 'schemas')}/${name}.json`,
-      JSON.stringify({ name, url, typeDefs }),
-    );
-
-    this.generateData();
-  }
-
-  readData() {
-    return { hash: this.hash, data: this.data };
-  }
-
-  generateData() {
-    const hash = createHash('sha1');
-    const files = fs.readdirSync(path.join(__dirname, 'schemas'));
-    const data = files.map((file) =>
-      JSON.parse(fs.readFileSync(`${path.join(__dirname, 'schemas')}/${file}`, 'utf8')),
-    );
-
-    hash.update(JSON.stringify(data));
-
-    this.hash = hash.digest('hex');
-    this.data = data;
-  }
-}
-
-const schemaRegistry = new SchemaRegistry();
