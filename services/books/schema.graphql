@@ -1,0 +1,12 @@
+"Some information about a book"
+type Book {
+  id: ID!
+  name: String!
+  weight: Int!
+}
+
+type Query {
+  books: [Book]!
+  book(id: ID!): Book @merge(keyField: "id")
+  _sdl: String!
+}

@@ -1,0 +1,16 @@
+type Review {
+  id: ID!
+  name: String!
+  rating: Int!
+}
+
+type Book {
+  id: ID!
+  reviews: [Review]!
+}
+
+type Query {
+  reviews(id: ID!): [Review]
+  _book(id: ID!): Book @merge(keyField: "id")
+  _sdl: String!
+}

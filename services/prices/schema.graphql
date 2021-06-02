@@ -1,0 +1,10 @@
+type Book {
+  id: ID!
+  price: Int!
+  color: String!
+}
+
+type Query {
+  _book(id: ID!): Book @merge(keyField: "id")
+  _sdl: String!
+}
