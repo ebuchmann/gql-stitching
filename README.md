@@ -2,6 +2,8 @@
 
 This project is meant to show how newer versions of schema stitching for GraphQL can be used to create a federated GraphQL gateway. The work here is based off examples from the [Schema Stitching Handbook](https://github.com/gmac/schema-stitching-handbook) and meant to work more like Apollo Federation would set up the architecture.
 
+![Diagram for GraphQL](./GraphQL.png 'Diagram for GraphQL')
+
 ## Getting started
 
 Clone and install dependencies, and then start running different services:
